@@ -1,4 +1,12 @@
+import { useNavigate } from "react-router-dom"
+
 const Main = () => {
+    const navigate = useNavigate()
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        if (e.target.query.value.trim().length === 0) return
+        navigate("/search?q=" + encodeURIComponent(e.target.query.value))
+    }
     return (
         <section className="hero">
             <div className="hero-content">
@@ -12,10 +20,11 @@ const Main = () => {
                     Исследуйте миллионы книг, находите новые истории и
                     открывайте авторов.
                 </p>
-                <form className="search" id="searchForm">
+                <form onSubmit={handleSubmit} className="search" id="searchForm">
                     <span className="search-icon">⌕</span>
                     <input
                         id="searchInput"
+                        name="query"
                         type="text"
                         placeholder="Название книги, автор или ISBN..."
                     />
